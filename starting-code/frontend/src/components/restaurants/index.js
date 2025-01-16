@@ -29,7 +29,12 @@ const Restaurants = () => {
   const onAddNewRestaurant = async (e) => {
     e.preventDefault();
 
-    const newRestaurant = await addNewRestaurant(newRestaurantName);
+    if (!newRestaurantName) {
+      alert("Restaurant name is required");
+      return;
+    }
+
+    const newRestaurant = await addNewRestaurant({ name: newRestaurantName });
     setNewRestaurantName("");
     dispatch({ type: "ADD_NEW_RESTAURANT", payload: newRestaurant });
   };

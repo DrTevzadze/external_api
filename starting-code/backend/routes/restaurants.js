@@ -37,6 +37,11 @@ router.post("/", async (req, res) => {
   const { body } = req;
   const { name } = body;
 
+  if (!name) {
+    res.status(400).send({ error: "Name is required" });
+    return;
+  }
+
   const { data, error } = await supabaseProvider.from("restaurants").insert([{ name }]).select();
 
   if (error || data.length !== 1) {
